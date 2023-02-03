@@ -1,0 +1,116 @@
+<form
+  *ngIf="!account && !loginInProgress"
+  id="login-form" (ngSubmit)="login()">
+  <mat-form-field>
+    <mat-label>Login Methode</mat-label>
+    <mat-select [formControl]="method" (selectionChange)="error = undefined; updateForm()">
+      <mat-option [value]="'code'">Zugangscode</mat-option>
+      <mat-option [value]="'password'">Passwort</mat-option>
+      <mat-option [value]="'oauth2/google'">Google</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field
+    *ngIf="method.value==='code'">
+    <input
+      matInput
+      type="password"
+      name="code"
+      autocomplete="on"
+      (input)="error = undefined"
+      [formControl]="code">
+    <mat-label>Zugangscode</mat-label>
+  </mat-form-field>
+
+  <mat-form-field
+    *ngIf="method.value==='password'">
+    <input
+      matInput
+      type="text"
+      name="username"
+      autocomplete="on"
+      [formControl]="username">
+    <mat-label>Benutzername</mat-label>
+    <mat-error *ngIf="username.value">Unbekannter Benutzername</mat-error>
+  </mat-form-field>
+
+  <mat-form-field
+    *ngIf="method.value==='password'">
+    <input
+      matInput
+      type="password"
+      name="password"
+      autocomplete="on"
+      (input)="error = undefined"
+      [formControl]="password">
+    <mat-label>Passwort</mat-label>
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    form="login-form"
+    [disabled]="form.invalid || form.disabled || !form.dirty">
+    Login
+  </button>
+  <mat-error *ngIf="error?.status===401">Falsche Zugangsdaten</mat-error>
+</form>
+
+<mat-spinner *ngIf="loginInProgress"></mat-spinner>
+
+<mat-form-field *ngIf="account && !profile">
+  <mat-select>
+    <mat-option
+      *ngFor="let p of account!.profiles!"
+      [value]="p"
+      (click)="profileChange.emit(p)">
+      {{p.nickname ?? p.firstName}}
+    </mat-option>
+  </mat-select>
+  <mat-label>Wer ist da?</mat-label>
+</mat-form-field>
+
+<div *ngIf="profile" class="aligned-header">
+  <span class="header-spacer">
+
+  </span>
+
+  <button
+    mat-flat-button
+    class="profile-button"
+    (click)="edit(profile)"
+  >
+    <span class="non-hover-text fading">
+      Hallo {{profile.nickname ?? profile.firstName}}!
+    </span>
+    <span class="hover-text fading">
+      Profil bearbeiten
+    </span>
+    <span class="alert-badge-menu" *ngIf="profile.todoCount('email')" [matBadge]="profile.todoCount('email')"></span>
+  </button>
+
+  <button mat-icon-button class="right-bordered" [matMenuTriggerFor]="menu">
+    <mat-icon>people_outline</mat-icon>
+    <span class="alert-badge-menu" *ngIf="todoCount() > 0" [matBadge]="todoCount()"></span>
+  </button>
+
+  <mat-menu #menu="matMenu">
+    <button
+      mat-menu-item
+      *ngFor="let p of account!.profiles!"
+      [disabled]="p.identifier === profile.identifier"
+      (click)="profileChange.emit(p)">
+      <mat-icon>perm_identity</mat-icon>
+      <span [class.current-profile]="p.identifier === profile.identifier">{{p.nickname ?? p.firstName}}</span>
+      <span class="alert-badge-menu-item" *ngIf="p.identifier !== profile.identifier && todoCount(p)" [matBadge]="todoCount(p)"></span>
+    </button>
+    <button
+      mat-menu-item
+      (click)="setAccount(undefined)">
+      Ausloggen
+      <mat-icon>logout</mat-icon>
+    </button>
+
+  </mat-menu>
+</div>

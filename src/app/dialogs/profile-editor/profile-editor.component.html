@@ -1,0 +1,76 @@
+<section class="dialog-content-container">
+  <div mat-dialog-title>
+    <h1>{{data.nickname}}</h1>
+    <h2>{{data.firstName}} {{data.familyName}}</h2>
+  </div>
+
+  <div mat-dialog-content>
+
+    <mat-form-field *ngIf="data.isAdmin" appearance="fill" class="dialog-input-row">
+      <mat-label>Vorname</mat-label>
+      <input
+        matInput
+        required
+        type="text"
+        name="fname"
+        autocomplete="off"
+        [(ngModel)]="data.firstName">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="data.isAdmin" appearance="fill" class="dialog-input-row">
+      <mat-label>Nachname</mat-label>
+      <input
+        matInput
+        required
+        type="text"
+        name="lname"
+        autocomplete="off"
+        [(ngModel)]="data.familyName">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="dialog-input-row">
+      <mat-label>Rufname</mat-label>
+      <input
+        matInput
+        type="text"
+        name="nickname"
+        autocomplete="off"
+        [(ngModel)]="data.nickname">
+    </mat-form-field>
+
+    <mat-radio-group [(ngModel)]="data.blockEmail">
+      <mat-radio-button
+        [value]="false">
+        Bitte informiert mich über Updates!
+      </mat-radio-button>
+      <mat-radio-button
+        [value]="true"
+        [disabled]="!!data.email">
+        Ich will meine E-Mail Adresse nicht angeben.
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <mat-form-field appearance="fill" class="dialog-input-row">
+      <span class="alert-badge" *ngIf="data.emailMissing" [matBadge]="1"></span>
+      <input
+        matInput
+        type="email"
+        name="email"
+        autocomplete="on"
+        [(ngModel)]="data.email">
+      <mat-label>E-Mail</mat-label>
+    </mat-form-field>
+
+  </div>
+  <div mat-dialog-actions class="dialog-action-row">
+    <button mat-button (click)="cancel()">Abbrechen</button>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!data.changed"
+      [mat-dialog-close]="data">
+      Speichern
+    </button>
+  </div>
+
+</section>

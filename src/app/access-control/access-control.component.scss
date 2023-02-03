@@ -1,0 +1,92 @@
+:host {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog-content-container {
+  //background: #ffc0cb;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  width: calc(100% - 16px);
+  padding: 0 8px;
+}
+
+.control-button {
+  width: 100%;
+}
+
+.aligned-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-spacer {
+  width: 48px;
+}
+
+.profile-button {
+  position: relative;
+  color: pink;
+  font-weight: normal;
+  font-size: 16px;
+
+  .non-hover-text {
+    display: contents;
+    opacity: 1;
+  }
+
+  .hover-text {
+    display: none;
+    opacity: 0;
+  }
+
+  &:hover {
+    .non-hover-text {
+      display: none;
+      opacity: 0;
+    }
+    .hover-text {
+      display: contents;
+      opacity: 1;
+    }
+  }
+}
+
+.fading {
+  transition: all 0.8s ease;
+}
+
+.right-bordered {
+  position: relative;
+  right: 1em;
+}
+
+.alert-badge-menu {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.alert-badge-menu-item {
+  position: absolute;
+  right: 1em;
+  top: 50%;
+}
+
+.current-profile {
+  text-decoration: underline;
+}

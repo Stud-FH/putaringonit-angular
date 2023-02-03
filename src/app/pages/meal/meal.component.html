@@ -1,0 +1,21 @@
+<mat-grid-list cols="1" rowHeight="6em">
+
+  <mat-grid-tile *ngFor="let dish of meal.dishes">
+    <div class="grid-tile-container" (click)="open(dish)">
+      <div class="grid-tile-image-container">
+        <mat-icon>restaurant</mat-icon>
+      </div>
+      <div class="grid-tile-info-container">
+        <h3 class="grid-tile-info-title">
+          {{dish.title}}
+        </h3>
+        <p class="grid-tile-info-caption">
+          {{dish.caption}}
+        </p>
+      </div>
+      <div class="grid-tile-icon-container">
+        <mat-icon>{{selection? 'done' : 'clear'}}</mat-icon>
+      </div>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>

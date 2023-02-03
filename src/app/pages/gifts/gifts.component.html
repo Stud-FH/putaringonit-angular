@@ -1,0 +1,26 @@
+<mat-grid-list cols="1" rowHeight="6em">
+  <mat-grid-tile *ngFor="let wish of context.wishes">
+    <div class="grid-tile-container padded" (click)="open(wish)" [class.highlight]="wish.giftOf(profile.identifier!)">
+      <div class="grid-tile-image-container">
+        <img
+          src="{{wish.imageUrl}}"
+          alt="{{wish.title}}">
+      </div>
+      <div class="grid-tile-info-container">
+        <p class="grid-tile-info-caption">
+          {{wish.caption}}
+        </p>
+        <mat-progress-bar
+          [value]="wish.progress *100"
+          [mode]="'determinate'">
+        </mat-progress-bar>
+        <p class="grid-tile-info-progress">
+          {{wish.progressText}}
+        </p>
+      </div>
+      <div class="grid-tile-icon-container" [class.supported]="wish.giftOf(profile.identifier!)">
+        <mat-icon>{{wish.giftOf(profile.identifier!)? 'favorite' : ''}}</mat-icon>
+      </div>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>

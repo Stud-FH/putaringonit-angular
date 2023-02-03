@@ -1,0 +1,29 @@
+
+.dialog-content-container {
+  max-width: min(480px, 80vw);
+  max-height: 90vh;
+  overflow-y: scroll;
+  scrollbar-base-color: transparent;
+}
+
+.dialog-input-row {
+  width: 100%;
+  textarea {
+    min-height: 6em;
+  }
+}
+
+.dialog-description {
+  font-size: medium;
+  font-weight: normal;
+  line-height: 1.5em;
+  opacity: 0.6;
+}
+
+.dialog-action-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 24px 9px;
+}

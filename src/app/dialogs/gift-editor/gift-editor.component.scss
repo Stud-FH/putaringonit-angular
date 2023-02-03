@@ -1,0 +1,25 @@
+.spinner-container {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  margin-bottom: 1em;
+
+  div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    padding-left: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.accumulated-spinner {
+}
+
+.gift-spinner {
+
+}

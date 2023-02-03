@@ -1,0 +1,72 @@
+<section class="dialog-content-container">
+  <div mat-dialog-title>
+    <h1>{{data.wish.title}}</h1>
+    <img
+      src="{{data.wish.imageUrl}}"
+      alt="{{data.wish.caption}}"
+      width="100%">
+    <p class="dialog-description">{{data.wish.description}}</p>
+  </div>
+
+  <div mat-dialog-content>
+
+    <div class="spinner-container"  *ngIf="progressWith">
+      <div>
+        <mat-progress-spinner
+          [diameter]="150"
+          [strokeWidth]="10"
+          [mode]="'determinate'"
+          [color]="'primary'"
+          [value]="progressWith *100">
+        </mat-progress-spinner>
+      </div>
+      <div>
+        <mat-progress-spinner
+          [diameter]="150"
+          [strokeWidth]="10"
+          [mode]="'determinate'"
+          [color]="'accent'"
+          [value]="progressWithout *100">
+        </mat-progress-spinner>
+      </div>
+    </div>
+
+    <p *ngIf="!reservedValue">Möchtest du dieses Geschenk unterstützen?</p>
+    <p *ngIf="reservedValue">{{appreciationText}}</p>
+
+    <mat-form-field appearance="fill" class="dialog-input-row">
+      <mat-label>Betrag ({{data.wish.unit}})</mat-label>
+      <input
+        matInput
+        required
+        type="number"
+        name="value"
+        autocomplete="off"
+        [max]="maxValue"
+        [(ngModel)]="data.value">
+      <mat-error>Offener Betrag: {{maxValue}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="dialog-input-row">
+    <textarea
+      matInput
+
+      type="text"
+      name="comment"
+      autocomplete="off"
+      [(ngModel)]="data.comment">
+    </textarea>
+      <mat-label>Kommentar</mat-label>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions class="dialog-action-row">
+    <button mat-button (click)="cancel()">Abbrechen</button>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!data.value"
+      [mat-dialog-close]="data">
+      {{data.id? 'Speichern' : 'Betrag reservieren'}}
+    </button>
+  </div>
+</section>

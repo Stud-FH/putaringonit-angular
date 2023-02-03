@@ -1,0 +1,68 @@
+:host {
+  display: flex;
+  justify-content: center;
+  background: pink;
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
+.app-container {
+  width: 100vw;
+  max-width: 600px;
+  height: fit-content;
+  min-height: 100vh;
+  padding-bottom: 46px;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.title {
+  width: 100%;
+  text-align: center;
+  padding: 12px;
+  font-weight: bold;
+  font-size: 42px;
+  text-shadow: 0 0 5px white, 0 0 5px white;
+}
+
+.access-control {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1.5em;
+}
+
+.alert-badge {
+  position: absolute;
+  right: 5em;
+}
+
+.header {
+  color: #424242;
+  padding: 20px 0 30px 0;
+  background: linear-gradient(180deg, transparent 0%, transparent 50%, #424242 100%), url("https://img.pixers.pics/pho_wat(s3:700/FO/12/87/45/28/2/700_FO128745282_4dca0a00cd3330a606823be35e3eb320,700,465,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,480,415,jpg)/seitenschlaferkissen-rosa-rosen-als-hintergrund.jpg.jpg");
+  background-size: cover;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.25);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 5px 10px;
+  font-size: 12px;
+  opacity: 0.8;
+  color: #424242;
+}
+
+.footer-logo {
+  height: 30px;
+  padding: 0 1em;
+}
+
+

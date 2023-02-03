@@ -1,0 +1,23 @@
+<mat-grid-list cols="1" rowHeight="6em">
+
+  <mat-grid-tile *ngFor="let program of displayedPrograms">
+    <div class="grid-tile-container" (click)="open(program)">
+      <div class="grid-tile-image-container">
+        <p>{{program.startTime}}</p>
+        <p>{{program.endTime}}</p>
+      </div>
+      <div class="grid-tile-info-container">
+        <h3 class="grid-tile-info-title">
+          {{program.title}}
+        </h3>
+        <p class="grid-tile-info-caption">
+          {{program.caption}}
+        </p>
+      </div>
+      <div class="grid-tile-icon-container">
+        <mat-icon>{{statusIcon(program)}}</mat-icon>
+        <span class="alert-badge" *ngIf="todoCount(program)" [matBadge]="todoCount(program)"></span>
+      </div>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>

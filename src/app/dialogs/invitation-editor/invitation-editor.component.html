@@ -1,0 +1,32 @@
+<section class="dialog-content-container">
+  <div mat-dialog-title>
+    <h1>{{data.program!.title}}</h1>
+    <img
+      *ngIf="data.program?.imageUrl"
+      src="{{data.program!.imageUrl}}"
+      alt="{{data.program!.caption}}"
+      width="100%">
+    <p class="dialog-description">{{data.program!.description}}</p>
+  </div>
+
+  <div mat-dialog-content>
+
+    <p>{{statusText}}</p>
+
+    <mat-radio-group [(ngModel)]="data.accepted" class="vertical-radio-group">
+      <mat-radio-button [value]="true">Ich werde dabei sein.</mat-radio-button>
+      <mat-radio-button [value]="false">Ich kann leider nicht.</mat-radio-button>
+    </mat-radio-group>
+
+  </div>
+  <div mat-dialog-actions class="dialog-action-row">
+    <button mat-button (click)="cancel()">Abbrechen</button>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!ready"
+      [mat-dialog-close]="data">
+      Speichern
+    </button>
+  </div>
+</section>

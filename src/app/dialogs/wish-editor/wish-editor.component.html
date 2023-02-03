@@ -1,0 +1,84 @@
+<section class="dialog-content-container">
+  <div mat-dialog-title>
+    <h1>{{data.title}}</h1>
+    <img
+      src="{{data.imageUrl}}"
+      alt="{{data.caption}}"
+      width="100%">
+  </div>
+
+  <div mat-dialog-content>
+
+    <mat-form-field appearance="fill" class="dialog-input-row">
+      <mat-label>Titel</mat-label>
+      <input
+        matInput
+        required
+        type="text"
+        name="title"
+        autocomplete="off"
+        [(ngModel)]="data.title">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="dialog-input-row">
+      <input
+        matInput
+        type="text"
+        name="image"
+        autocomplete="off"
+        [(ngModel)]="data.imageUrl">
+      <mat-label>Bild URL</mat-label>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="dialog-input-row">
+      <input
+        matInput
+        type="text"
+        name="caption"
+        autocomplete="off"
+        [(ngModel)]="data.caption">
+      <mat-label>Schlagzeile</mat-label>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="dialog-input-row">
+      <textarea
+        matInput
+        type="text"
+        name="description"
+        autocomplete="off"
+        [(ngModel)]="data.description">
+      </textarea>
+      <mat-label>Beschreibung</mat-label>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="dialog-input-row">
+      <mat-label>Einheit</mat-label>
+      <mat-select [(ngModel)]="data.unit">
+        <mat-option [value]="'CHF'">CHF</mat-option>
+        <mat-option [value]="'Piece'">Stück</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="dialog-input-row">
+      <input
+        matInput
+        type="number"
+        name="value"
+        autocomplete="off"
+        [(ngModel)]="data.value">
+      <mat-label>Betrag</mat-label>
+    </mat-form-field>
+
+  </div>
+  <div mat-dialog-actions class="dialog-action-row">
+    <button mat-button (click)="cancel()">Abbrechen</button>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!data.value"
+      [mat-dialog-close]="data">
+      Speichern
+    </button>
+  </div>
+
+</section>

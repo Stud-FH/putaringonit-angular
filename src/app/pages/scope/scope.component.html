@@ -1,0 +1,144 @@
+<mat-button-toggle-group name="mode" aria-label="Mode" [(ngModel)]="mode">
+  <mat-button-toggle [value]="modes.programs">
+    Programm
+  </mat-button-toggle>
+  <mat-button-toggle [value]="modes.meals">
+    Mahlzeiten
+  </mat-button-toggle>
+  <mat-button-toggle [value]="modes.dishes">
+    Menü
+  </mat-button-toggle>
+  <mat-button-toggle [value]="modes.wishes">
+    Wunschbüechli
+  </mat-button-toggle>
+</mat-button-toggle-group>
+
+<mat-grid-list *ngIf="mode===modes.programs" cols="1" rowHeight="6em">
+
+  <mat-grid-tile *ngFor="let program of context.programs">
+    <div class="grid-tile-container" (click)="editProgram(program)">
+      <div class="grid-tile-image-container">
+        <p>{{program.startTime}}</p>
+        <p>{{program.endTime}}</p>
+      </div>
+      <div class="grid-tile-info-container">
+        <h3 class="grid-tile-info-title">
+          {{program.title}}
+        </h3>
+        <p class="grid-tile-info-caption">
+          {{program.caption}}
+        </p>
+      </div>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+
+    <div class="grid-tile-container" (click)="createProgram()">
+      <div class="grid-tile-image-container">
+        <mat-icon>add_circle_outline</mat-icon>
+      </div>
+      <div class="grid-tile-info-container">
+        <p class="grid-tile-info-create">
+          Erstellen
+        </p>
+      </div>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-grid-list *ngIf="mode===modes.meals" cols="1" rowHeight="6em">
+  <mat-grid-tile *ngFor="let meal of context.meals">
+    <div class="grid-tile-container padded" (click)="editMeal(meal)">
+      <div class="grid-tile-image-container">
+        <img
+          src="{{meal.imageUrl}}"
+          alt="{{meal.title}}">
+      </div>
+      <div class="grid-tile-info-container">
+        <p class="grid-tile-info-caption">
+          {{meal.caption}}
+        </p>
+      </div>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+
+    <div class="grid-tile-container" (click)="createMeal()">
+      <div class="grid-tile-image-container">
+        <mat-icon>add_circle_outline</mat-icon>
+      </div>
+      <div class="grid-tile-info-container">
+        <p class="grid-tile-info-create">
+          Erstellen
+        </p>
+      </div>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-grid-list *ngIf="mode===modes.dishes" cols="1" rowHeight="6em">
+  <mat-grid-tile *ngFor="let dish of context.dishes">
+    <div class="grid-tile-container padded" (click)="editDish(dish)">
+      <div class="grid-tile-image-container">
+        <img
+          src="{{dish.imageUrl}}"
+          alt="{{dish.title}}">
+      </div>
+      <div class="grid-tile-info-container">
+        <p class="grid-tile-info-caption">
+          {{dish.caption}}
+        </p>
+      </div>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+
+    <div class="grid-tile-container" (click)="createDish()">
+      <div class="grid-tile-image-container">
+        <mat-icon>add_circle_outline</mat-icon>
+      </div>
+      <div class="grid-tile-info-container">
+        <p class="grid-tile-info-create">
+          Erstellen
+        </p>
+      </div>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-grid-list *ngIf="mode===modes.wishes" cols="1" rowHeight="6em">
+  <mat-grid-tile *ngFor="let wish of context.wishes">
+    <div class="grid-tile-container padded" (click)="editWish(wish)">
+      <div class="grid-tile-image-container">
+        <img
+          src="{{wish.imageUrl}}"
+          alt="{{wish.title}}">
+      </div>
+      <div class="grid-tile-info-container">
+        <p class="grid-tile-info-caption">
+          {{wish.caption}}
+        </p>
+        <mat-progress-bar
+          [value]="wish.progress *100"
+          [mode]="'determinate'">
+        </mat-progress-bar>
+        <p class="grid-tile-info-progress">
+          {{wish.progressText}}
+        </p>
+      </div>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+
+    <div class="grid-tile-container" (click)="createWish()">
+      <div class="grid-tile-image-container">
+        <mat-icon>add_circle_outline</mat-icon>
+      </div>
+      <div class="grid-tile-info-container">
+        <p class="grid-tile-info-create">
+          Erstellen
+        </p>
+      </div>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>

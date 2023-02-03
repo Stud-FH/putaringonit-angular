@@ -1,0 +1,51 @@
+<section class="dialog-content-container">
+  <div mat-dialog-title>
+    <h1>{{meal.title}}</h1>
+    <img
+      *ngIf="meal.imageUrl"
+      src="{{meal.imageUrl}}"
+      alt="{{meal.caption}}"
+      width="100%">
+    <p class="dialog-description">{{meal.description}}</p>
+  </div>
+
+  <div mat-dialog-content>
+
+    <mat-form-field appearance="fill" class="dialog-input-row">
+      <mat-label>Menu</mat-label>
+      <mat-select [(ngModel)]="data.dishId">
+        <mat-option [value]="undefined">Bitte auswählen</mat-option>
+        <mat-option *ngFor="let dish of meal.dishes" [value]="dish.id">{{dish.title}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <h3 *ngIf="dish">{{dish!.title}}</h3>
+    <img *ngIf="dish"
+      src="{{dish!.imageUrl}}"
+      alt="{{dish!.caption}}"
+      width="100%">
+    <p *ngIf="dish" class="dialog-description">{{dish!.description}}</p>
+
+    <mat-form-field appearance="fill" class="dialog-input-row">
+      <textarea
+        matInput
+        type="text"
+        name="comment"
+        autocomplete="off"
+        [(ngModel)]="data.comment">
+      </textarea>
+      <mat-label>Wichtig für die Küche</mat-label>
+    </mat-form-field>
+
+  </div>
+  <div mat-dialog-actions class="dialog-action-row">
+    <button mat-button (click)="cancel()">Abbrechen</button>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!ready"
+      [mat-dialog-close]="data">
+      Speichern
+    </button>
+  </div>
+</section>

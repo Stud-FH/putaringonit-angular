@@ -1,0 +1,112 @@
+<mat-card class="app-container">
+
+  <mat-card-header class="header">
+    <h1 class="title">
+      {{title}}
+    </h1>
+  </mat-card-header>
+
+  <mat-card-content class="access-control">
+    <app-access-control
+      [(account)]="account"
+      [(profile)]="profile"
+      [token]="loadToken()"
+      (accountChange)="persistToken($event)"
+    ></app-access-control>
+  </mat-card-content>
+
+  <mat-card-content>
+    <mat-accordion *ngIf="profile">
+
+      <mat-expansion-panel *ngIf="profile?.isAdmin">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Angebot
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-scope [context]="context!"></app-scope>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel *ngIf="profile?.isAdmin">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Gästeliste
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-guests></app-guests>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel *ngIf="profile.availablePrograms?.length">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Programm
+            <span *ngIf="profile?.todoCount('invitations')" class="alert-badge" [matBadge]="profile.todoCount('invitations')"></span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-program [profile]="profile" [programs]="profile.availablePrograms!"></app-program>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel *ngIf="profile.availableMeals?.length">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Menü
+            <span *ngIf="profile?.todoCount('meals')" class="alert-badge" [matBadge]="profile.todoCount('meals')"></span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-dish [profile]="profile" [context]="context!"></app-dish>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Unsere Brautführer
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-team [profile]="profile"></app-team>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Unsere Story
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-story [profile]="profile"></app-story>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel *ngIf="profile.isEnrolled()">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Wunschbüechli
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-gifts [profile]="profile" [context]="context!"></app-gifts>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Fotos
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-illustrations [profile]="profile"></app-illustrations>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Kontakt
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-contact [profile]="profile"></app-contact>
+      </mat-expansion-panel>
+
+    </mat-accordion>
+  </mat-card-content>
+
+  <mat-card-footer class="footer">
+    <img alt="logo" class="footer-logo" src="favicon.ico">
+    Sandy & Florian
+  </mat-card-footer>
+
+</mat-card>
