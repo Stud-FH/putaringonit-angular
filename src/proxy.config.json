@@ -1,0 +1,7 @@
+{
+  "/api/*": {
+    "target": "https://putaringonit.herokuapp.com",
+    "secure": true,
+    "logLevel": "debug"
+  }
+}
