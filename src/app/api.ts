@@ -1,3 +1,5 @@
+import {isDevMode} from "@angular/core"
+
 export const api = {
-  baseUrl: 'http://localhost:8080'
+  baseUrl: isDevMode()? 'http://localhost:8080' : 'https://putaringonit.herokuapp.com/'
 }
