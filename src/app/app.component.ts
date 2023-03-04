@@ -16,6 +16,7 @@ export class AppComponent {
   }
   set account(value: Account | undefined) {
     this._account = value;
+    this.persistToken(value);
     this.profile = value?.profiles.length === 1 ? value.profiles[0] : undefined
   }
 

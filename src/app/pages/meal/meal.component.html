@@ -1,20 +1,21 @@
 <mat-grid-list cols="1" rowHeight="6em">
 
-  <mat-grid-tile *ngFor="let dish of meal.dishes">
-    <div class="grid-tile-container" (click)="open(dish)">
+  <mat-grid-tile *ngFor="let meal of profile.availableMeals">
+    <div class="grid-tile-container" (click)="open(meal)">
       <div class="grid-tile-image-container">
         <mat-icon>restaurant</mat-icon>
       </div>
       <div class="grid-tile-info-container">
         <h3 class="grid-tile-info-title">
-          {{dish.title}}
+          {{meal.title}}
         </h3>
         <p class="grid-tile-info-caption">
-          {{dish.caption}}
+          {{profile.findDishSelection(meal)?.dish?.title ?? meal.caption}}
         </p>
       </div>
       <div class="grid-tile-icon-container">
-        <mat-icon>{{selection? 'done' : 'clear'}}</mat-icon>
+        <mat-icon>{{profile.findDishSelection(meal)? 'done' : 'outlined_flag'}}</mat-icon>
+        <span class="alert-badge" *ngIf="!profile.findDishSelection(meal)" [matBadge]="1"></span>
       </div>
     </div>
   </mat-grid-tile>

@@ -5,7 +5,7 @@ import {Context} from "../context";
 export class Program {
 
   outdated = false;
-  get updateQuery() {
+  get query() {
     return new ProgramUpdateQuery(this);
   }
 

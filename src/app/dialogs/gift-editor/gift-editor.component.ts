@@ -10,41 +10,38 @@ import {GiftUpdateObject} from "../../domain/gift/gift-update-object";
 export class GiftEditorComponent {
 
   get maxValue(): number {
-    return this.data.wish.value - this.data.wish.accumulatedExceptFrom(this.data.donorId);
+    let value = this.data.wish.value
+    return (value? value : Infinity) - this.data.wish.accumulatedExceptFrom(this.data.donorId);
   }
 
   get reservedValue(): number {
     return this.data.wish.giftOf(this.data.donorId)?.value ?? 0
   }
 
+  get accumulatedWithout() {
+    return this.data.wish.accumulatedExceptFrom(this.data.donorId);
+  }
+
+  get accumulatedWith() {
+    return this.data.wish.accumulatedExceptFrom(this.data.donorId) + (this.data.value ?? 0);
+  }
+
   get progressWithout() {
-    return this.data.wish.accumulatedExceptFrom(this.data.donorId) / this.data.wish.value;
+    let value = this.data.wish.value
+     return value? this.accumulatedWithout / value : 0;
   }
 
   get progressWith() {
-    return (this.data.wish.accumulatedExceptFrom(this.data.donorId) + (this.data.value ?? 0)) / this.data.wish.value;
+    let value = this.data.wish.value
+    return value? this.accumulatedWith / value : this.data.value;
   }
 
-  get appreciationText() {
-    let status;
-    switch (this.data.status) {
-      case 'Reserved':
-        status = 'reserviert';
-        break;
-      case 'Paid':
-        status = 'finanziert';
-        break;
-      case 'Delivered':
-        status = 'beigetragen';
-        break;
-      default: return '';
-    }
-
+  get accumulatedText() {
     switch(this.data.wish.unit) {
       case 'CHF':
-        return `Du hast CHF ${this.reservedValue} ${status}. Vielen Dank!`;
+        return `CHF ${this.accumulatedWith}`;
       case 'Piece':
-        return `Du hast ${this.reservedValue} Stück ${status}. Vielen Dank!`;
+        return `${this.accumulatedWith}`;
       default: return '';
     }
   }

@@ -2,6 +2,7 @@ import {DishSelectionUpdateQuery} from "./dish-selection-update-query";
 import {DishSelectionUpdateObject} from "./dish-selection-update-object";
 import {Context} from "../context";
 import {Meal} from "../meal/meal";
+import {Dish} from "../dish/dish";
 
 export class DishSelection {
 
@@ -23,6 +24,10 @@ export class DishSelection {
 
   get meal(): Meal {
     return this.context.mealRegistry[this.mealId];
+  }
+
+  get dish(): Dish | undefined {
+    return this.dishId? this.context.dishRegistry[this.dishId] : undefined;
   }
 
   constructor(private context: Context, model?: any) {

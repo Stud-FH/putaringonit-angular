@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import {api} from "../../api";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {authOptions} from "../../util/service-util";
+import {authOptions, updateOptions} from "../../util/service-util";
 import {Dish} from "./dish";
+import {Profile} from "../profile/profile";
+import {DishUpdateObject} from "./dish-update-object";
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +16,17 @@ export class DishService {
 
   constructor(private httpClient: HttpClient) { }
 
-  create(data: Dish): Observable<Dish> {
-    return this.httpClient.post<Dish>(`${DishService.url}/create`, data, authOptions());
+  create(updateObject: DishUpdateObject, profile: Profile): Observable<Dish> {
+    const query = updateObject.query
+    return this.httpClient.post<Dish>(`${DishService.url}/${updateObject.mealId}/create`, query.data, authOptions(profile));
   }
 
-  update(data: Dish): Observable<Dish> {
-    return this.httpClient.put<Dish>(`${DishService.url}/update`, data, authOptions());
+  update(updateObject: DishUpdateObject, profile: Profile): Observable<Dish> {
+    const query = updateObject.query
+    return this.httpClient.put<Dish>(`${DishService.url}/${updateObject.id}/update`, query.data, updateOptions(query.updates, profile));
   }
 
-  delete(data: Dish): Observable<void> {
-    return this.httpClient.delete<void>(`${DishService.url}/${data.id}`, authOptions())
+  delete(data: Dish, profile: Profile): Observable<void> {
+    return this.httpClient.delete<void>(`${DishService.url}/${data.id}/delete`, authOptions(profile))
   }
 }

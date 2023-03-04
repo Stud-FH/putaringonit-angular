@@ -87,7 +87,7 @@
     <span class="hover-text fading">
       Profil bearbeiten
     </span>
-    <span class="alert-badge-menu" *ngIf="profile.todoCount('email')" [matBadge]="profile.todoCount('email')"></span>
+    <span class="alert-badge-menu" *ngIf="profile.dataTodoCount" [matBadge]="profile.dataTodoCount"></span>
   </button>
 
   <button mat-icon-button class="right-bordered" [matMenuTriggerFor]="menu">
@@ -107,7 +107,7 @@
     </button>
     <button
       mat-menu-item
-      (click)="setAccount(undefined)">
+      (click)="logout()">
       Ausloggen
       <mat-icon>logout</mat-icon>
     </button>

@@ -6,6 +6,7 @@ import {GiftEditorComponent} from "../../dialogs/gift-editor/gift-editor.compone
 import {GiftService} from "../../domain/gift/gift.service";
 import {Gift} from "../../domain/gift/gift";
 import {Context} from "../../domain/context";
+import {GiftConfirmationComponent} from "../../dialogs/gift-confirmation/gift-confirmation.component";
 
 @Component({
   selector: 'app-gifts',
@@ -29,12 +30,18 @@ export class GiftsComponent {
 
     dialogRef.afterClosed().subscribe(submitted => {
       if (submitted) {
-        if (submitted.id) {
-          this.giftService.update(submitted)
-            .subscribe(this.context.registerGift);
+        if (!submitted.id) {
+          this.giftService.create(submitted, this.profile)
+            .subscribe(res => {
+              const gift = this.context.registerGift(res);
+              this.dialog.open(GiftConfirmationComponent, {data: gift});
+            });
+        } else if (submitted.value) {
+          this.giftService.update(submitted, this.profile)
+            .subscribe(res => this.context.registerGift(res));
         } else {
-          this.giftService.create(submitted)
-            .subscribe(this.context.registerGift);
+          this.giftService.delete(submitted, this.profile)
+            .subscribe(res => this.context.unregisterGift(res));
         }
       }
     });

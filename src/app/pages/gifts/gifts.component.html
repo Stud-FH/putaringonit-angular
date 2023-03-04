@@ -1,3 +1,14 @@
+<p>
+  Wir freuen uns, dich auf unserer Hochzeit zu sehen. Falls du uns etwas schenken möchtest, findest du unten ein
+  paar Ideen. Möchtest du etwas davon unterstützen, hast du die Möglichkeit, einen Betrag zu reservieren. Sobald der
+  gesamte Betrag für ein Artikel zusammen gekommen ist, werden dich unsere Brautführer kontaktieren.
+  Bitte beachte, dass wenn wir bei einem Wunsch einen Link zum spezifischen Produkt hinterlegt haben, wir uns auch
+  dieses spezifische Produkt wünschen. Zu sämtlichen Anliegen dürft ihr gerne jederzeit unsere Brautführer kontaktieren.
+</p>
+<p>
+  Generell bitten wir alle darum, eure Geschenke anzuschreiben :)
+</p>
+
 <mat-grid-list cols="1" rowHeight="6em">
   <mat-grid-tile *ngFor="let wish of context.wishes">
     <div class="grid-tile-container padded" (click)="open(wish)" [class.highlight]="wish.giftOf(profile.identifier!)">
@@ -11,15 +22,19 @@
           {{wish.caption}}
         </p>
         <mat-progress-bar
-          [value]="wish.progress *100"
+          [value]="wish.hideProgress? wish.giftOf(profile.identifier!)? 100 : 0 : wish.progress *100"
+          [color]="wish.giftOf(profile.identifier!)? 'primary' : 'accent'"
           [mode]="'determinate'">
         </mat-progress-bar>
-        <p class="grid-tile-info-progress">
+        <p *ngIf="!wish.hideProgress"
+          class="grid-tile-info-progress">
           {{wish.progressText}}
         </p>
-      </div>
-      <div class="grid-tile-icon-container" [class.supported]="wish.giftOf(profile.identifier!)">
-        <mat-icon>{{wish.giftOf(profile.identifier!)? 'favorite' : ''}}</mat-icon>
+        <p *ngIf="wish.giftOf(profile.identifier!)"
+        class="supported">
+          <mat-icon>favorite</mat-icon>
+          {{wish.giftOf(profile.identifier!)?.contributionText}}
+        </p>
       </div>
     </div>
   </mat-grid-tile>

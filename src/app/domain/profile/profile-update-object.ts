@@ -2,35 +2,35 @@ import {Profile} from "./profile";
 
 export class ProfileUpdateObject {
 
-  private _parent: Profile;
-
-  get updateQuery() {
-    return this._parent.updateQuery;
+  get query() {
+    return this.parent.query;
   }
 
   isAdmin = false;
 
-  id?: string;
+  get id() {
+    return this.parent.identifier;
+  }
 
   firstName: string;
   get firstNameChanged() {
-    return this.firstName !== (this._parent.firstName);
+    return this.firstName !== (this.parent.firstName);
   }
   familyName: string;
   get familyNameChanged() {
-    return this.familyName !== (this._parent.familyName);
+    return this.familyName !== (this.parent.familyName);
   }
   nickname: string;
   get nicknameChanged() {
-    return this.nickname !== (this._parent.nickname ?? '');
+    return this.nickname !== (this.parent.nickname ?? '');
   }
   email: string;
   get emailChanged() {
-    return this.email !== (this._parent.email ?? '');
+    return this.email !== (this.parent.email ?? '');
   }
   blockEmail: boolean;
   get blockEmailChanged() {
-    return this.blockEmail !== (this._parent.blockEmail ?? false);
+    return this.blockEmail !== (this.parent.blockEmail ?? false);
   }
   gifts: any[] = [];
   roles: string[] = [];
@@ -49,10 +49,8 @@ export class ProfileUpdateObject {
     return !this.blockEmail && !this.email;
   }
 
-  constructor(parent: Profile) {
-    this._parent = parent;
+  constructor(private parent: Profile) {
     this.isAdmin = parent.isAdmin;
-    this.id = parent.identifier;
     this.firstName = parent.firstName
     this.familyName = parent.familyName
     this.nickname = parent.nickname ?? '';

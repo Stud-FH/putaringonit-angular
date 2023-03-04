@@ -2,42 +2,54 @@ import {Program} from "./program";
 
 export class ProgramUpdateObject {
 
-  private _parent: Program;
+  get query() {
+    return this.parent.query;
+  }
 
-  id?: number;
+  get id() {
+    return this.parent.id;
+  }
 
   title!: string;
   get titleChanged() {
-    return this.title !== (this._parent.title ?? '');
+    return this.title !== (this.parent.title ?? '');
   }
 
   imageUrl!: string;
   get imageUrlChanged() {
-    return this.imageUrl !== (this._parent.imageUrl ?? '');
+    return this.imageUrl !== (this.parent.imageUrl ?? '');
   }
 
   caption!: string;
   get captionChanged() {
-    return this.caption !== (this._parent.caption ?? '');
+    return this.caption !== (this.parent.caption ?? '');
   }
 
   description!: string;
   get descriptionChanged() {
-    return this.description !== (this._parent.description ?? '');
+    return this.description !== (this.parent.description ?? '');
   }
 
   startTime!: string;
   get startTimeChanged() {
-    return this.startTime !== (this._parent.startTime ?? '');
+    return this.startTime !== (this.parent.startTime ?? '');
   }
 
   endTime!: string;
   get endTimeChanged() {
-    return this.endTime !== (this._parent.endTime ?? '');
+    return this.endTime !== (this.parent.endTime ?? '');
   }
 
-  constructor(parent: Program) {
-    this._parent = parent;
+  get changed() {
+    return this.titleChanged
+      || this.imageUrlChanged
+      || this.captionChanged
+      || this.descriptionChanged
+      || this.startTimeChanged
+      || this.endTimeChanged;
+  }
+
+  constructor(private parent: Program) {
     this.title = parent.title ?? '';
     this.imageUrl = parent.imageUrl ?? '';
     this.caption = parent.caption ?? '';
@@ -47,6 +59,6 @@ export class ProgramUpdateObject {
   }
 
   invalidate() {
-    this._parent.resetUpdate();
+    this.parent.resetUpdate();
   }
 }

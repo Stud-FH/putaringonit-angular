@@ -4,8 +4,8 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Invitation} from "./invitation";
 import {Profile} from "../profile/profile";
-import {Program} from "../program/program";
-import {authOptions, updateOptions} from "../../util/service-util";
+import {tokenOptions, updateOptions} from "../../util/service-util";
+import {InvitationUpdateObject} from "./invitation-update-object";
 
 @Injectable({
   providedIn: 'root'
@@ -16,16 +16,16 @@ export class InvitationService {
 
   constructor(private httpClient: HttpClient) { }
 
-  create(profile: Profile, program: Program): Observable<Invitation> {
-    return this.httpClient.post<Invitation>(`${InvitationService.url}/create/${program.id}`,{}, authOptions(profile.identifier!));
+  create(programId: number, profileId: string): Observable<Invitation> {
+    return this.httpClient.post<Invitation>(`${InvitationService.url}/${programId}/${profileId}/create`, {}, tokenOptions());
   }
 
-  delete(profile: Profile, program: Program): Observable<void> {
-    return this.httpClient.delete<void>(`${InvitationService.url}/delete/${program.id}`, authOptions(profile.identifier!));
+  delete(programId: number, profileId: string): Observable<void> {
+    return this.httpClient.delete<void>(`${InvitationService.url}/${programId}/${profileId}/delete`, tokenOptions());
   }
 
-  update(data: Invitation): Observable<Invitation> {
-    const query = data.updateQuery;
-    return this.httpClient.put<Invitation>(`${InvitationService.url}/update/${data.programId}`, query.data, updateOptions(query.updates, data.profileId!));
+  update(updateObject: InvitationUpdateObject, profile: Profile): Observable<Invitation> {
+    const query = updateObject.query;
+    return this.httpClient.put<Invitation>(`${InvitationService.url}/${updateObject.programId}/${updateObject.profileId}/update`, query.data, updateOptions(query.updates, profile));
   }
 }

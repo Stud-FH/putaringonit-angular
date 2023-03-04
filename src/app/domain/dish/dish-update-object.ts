@@ -2,7 +2,9 @@ import {Dish} from "./dish";
 
 export class DishUpdateObject {
 
-  id?: number;
+  get query() {
+    return this.parent.updateQuery;
+  }
 
   mealId!: number;
   get mealIdChanged() {
@@ -27,6 +29,22 @@ export class DishUpdateObject {
   description!: string;
   get descriptionChanged() {
     return this.description !== (this.parent.description ?? '');
+  }
+
+  get id() {
+    return this.parent.id;
+  }
+
+  get changed() {
+    return this.mealIdChanged
+      || this.titleChanged
+      || this.imageUrlChanged
+      || this.captionChanged
+      || this.descriptionChanged
+  }
+
+  get allMeals() {
+    return this.parent.allMeals;
   }
 
   constructor(private parent: Dish) {

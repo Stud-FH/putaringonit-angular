@@ -6,59 +6,64 @@ import {Meal} from "./meal/meal";
 
 export class Context {
 
-  programRegistry!: { [key: number]: Program };
+  programRegistry: { [key: number]: Program } = {};
   get programs() {
     return Object.values(this.programRegistry);
   }
 
-  mealRegistry!: { [key: number]: Meal };
+  mealRegistry: { [key: number]: Meal } = {};
   get meals() {
     return Object.values(this.mealRegistry);
   }
 
-  dishRegistry!: { [key: number]: Dish };
+  dishRegistry: { [key: number]: Dish } = {};
   get dishes() {
     return Object.values(this.dishRegistry);
   }
 
-  wishRegistry!: { [key: number]: Wish };
+  wishRegistry: { [key: number]: Wish } = {};
   get wishes() {
-    return Object.values(this.wishRegistry);
+    return Object.values(this.wishRegistry).sort();
   }
 
-  giftRegistry!: { [key: number]: Gift };
+  giftRegistry: { [key: number]: Gift } = {};
   get gifts() {
     return Object.values(this.giftRegistry);
   }
 
-  constructor(model?: any) {
-    Object.assign(this, model);
+  name!: string;
 
-    model?.programs?.forEach(this.registerProgram)
-    model?.meals?.forEach(this.registerMeal)
-    model?.dishes?.forEach(this.registerDish)
-    model?.wishes?.forEach(this.registerWish)
-    model?.gifts?.forEach(this.registerGift)
+  constructor(model: Context) {
+    this.name = model.name;
+    model.programs.forEach(p => this.registerProgram(p))
+    model.meals.forEach(m => this.registerMeal(m))
+    model.dishes.forEach(d => this.registerDish(d))
+    model.wishes.forEach(w => this.registerWish(w))
+    model.gifts.forEach(g => this.registerGift(g))
   }
 
   registerProgram(program: Program) {
-    this.programRegistry[program.id!] = new Program(this, program);
+    return this.programRegistry[program.id!] = new Program(this, program);
   }
 
   registerMeal(meal: Meal) {
-    this.mealRegistry[meal.id!] = new Meal(this, meal)
+    return this.mealRegistry[meal.id!] = new Meal(this, meal)
   }
 
   registerDish(dish: Dish) {
-    this.dishRegistry[dish.id!] = new Dish(this, dish);
+    return this.dishRegistry[dish.id!] = new Dish(this, dish);
   }
 
   registerWish(wish: Wish) {
-    this.wishRegistry[wish.id!] = new Wish(this, wish);
+    return this.wishRegistry[wish.id!] = new Wish(this, wish);
   }
 
   registerGift(gift: Gift) {
-    this.giftRegistry[gift.id!] = new Gift(this, gift);
+    return this.giftRegistry[gift.id!] = new Gift(this, gift);
+  }
+
+  unregisterGift(gift: Gift) {
+    delete this.giftRegistry[gift.id!];
   }
 
 }

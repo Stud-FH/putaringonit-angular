@@ -1,0 +1,18 @@
+.background {
+  padding: 100px 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../../../assets/petals.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0 0 8px 8px inset #424242;
+  text-align: center;
+}
+
+mat-card {
+  background-color: pink;
+  box-shadow: 0 0 8px 8px pink;
+  padding: 0.5em 2em;
+  color: #424242
+}

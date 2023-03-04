@@ -34,7 +34,7 @@ import { GiftEditorComponent } from './dialogs/gift-editor/gift-editor.component
 import { ProgramEditorComponent } from './dialogs/program-editor/program-editor.component';
 import { InvitationEditorComponent } from './dialogs/invitation-editor/invitation-editor.component';
 import { ProfileEditorComponent } from './dialogs/profile-editor/profile-editor.component';
-import { DishSelectionEditorComponent } from './dialogs/meal-selection-editor/dish-selection-editor.component';
+import { DishSelectionEditorComponent } from './dialogs/dish-selection-editor/dish-selection-editor.component';
 import { GuestsComponent } from './pages/guests/guests.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
@@ -42,6 +42,8 @@ import { ScopeComponent } from './pages/scope/scope.component';
 import { DishEditorComponent } from './dialogs/dish-editor/dish-editor.component';
 import { MealComponent } from './pages/meal/meal.component';
 import {MealEditorComponent} from "./dialogs/meal-editor/meal-editor.component";
+import { GiftSummaryComponent } from './modules/gift-appreciation/gift-summary.component';
+import {GiftConfirmationComponent} from "./dialogs/gift-confirmation/gift-confirmation.component";
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import {MealEditorComponent} from "./dialogs/meal-editor/meal-editor.component";
     GuestsComponent,
     ScopeComponent,
     DishEditorComponent,
-    MealComponent
+    MealComponent,
+    GiftSummaryComponent,
+    GiftConfirmationComponent
   ],
   imports: [
     HttpClientModule,

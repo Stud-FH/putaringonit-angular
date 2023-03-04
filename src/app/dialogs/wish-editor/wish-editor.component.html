@@ -1,13 +1,13 @@
 <section class="dialog-content-container">
   <div mat-dialog-title>
     <h1>{{data.title}}</h1>
-    <img
+    <img *ngIf="data.imageUrl"
       src="{{data.imageUrl}}"
       alt="{{data.caption}}"
       width="100%">
   </div>
 
-  <div mat-dialog-content>
+  <div mat-dialog-content class="no-nested-scrolling">
 
     <mat-form-field appearance="fill" class="dialog-input-row">
       <mat-label>Titel</mat-label>
@@ -28,6 +28,16 @@
         autocomplete="off"
         [(ngModel)]="data.imageUrl">
       <mat-label>Bild URL</mat-label>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="dialog-input-row">
+      <input
+        matInput
+        type="text"
+        name="product"
+        autocomplete="off"
+        [(ngModel)]="data.productUrl">
+      <mat-label>Produkt URL</mat-label>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="dialog-input-row">
@@ -69,13 +79,19 @@
       <mat-label>Betrag</mat-label>
     </mat-form-field>
 
+    <mat-checkbox
+      name="hideProgress"
+      [(ngModel)]="data.hideProgress">
+      Betrag Verstecken
+    </mat-checkbox>
+
   </div>
   <div mat-dialog-actions class="dialog-action-row">
     <button mat-button (click)="cancel()">Abbrechen</button>
     <button
       mat-raised-button
       color="primary"
-      [disabled]="!data.value"
+      [disabled]="!ready"
       [mat-dialog-close]="data">
       Speichern
     </button>

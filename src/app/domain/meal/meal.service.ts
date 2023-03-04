@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import {api} from "../../api";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {authOptions} from "../../util/service-util";
+import {authOptions, updateOptions} from "../../util/service-util";
 import {Meal} from "./meal";
+import {Profile} from "../profile/profile";
+import {MealUpdateObject} from "./meal-update-object";
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +16,17 @@ export class MealService {
 
   constructor(private httpClient: HttpClient) { }
 
-  create(data: Meal): Observable<Meal> {
-    return this.httpClient.post<Meal>(`${MealService.url}/create`, data, authOptions());
+  create(updateObject: MealUpdateObject, profile: Profile): Observable<Meal> {
+    const query = updateObject.query
+    return this.httpClient.post<Meal>(`${MealService.url}/${updateObject.programId}/create`, query.data, authOptions(profile));
   }
 
-  update(data: Meal): Observable<Meal> {
-    return this.httpClient.put<Meal>(`${MealService.url}/update`, data, authOptions());
+  update(updateObject: MealUpdateObject, profile: Profile): Observable<Meal> {
+    const query = updateObject.query
+    return this.httpClient.put<Meal>(`${MealService.url}/${updateObject.id}/update`, query.data, updateOptions(query.updates, profile));
   }
 
-  delete(data: Meal): Observable<void> {
-    return this.httpClient.delete<void>(`${MealService.url}/${data.id}`, authOptions())
+  delete(data: Meal, profile: Profile): Observable<void> {
+    return this.httpClient.delete<void>(`${MealService.url}/${data.id}/delete`, authOptions(profile))
   }
 }

@@ -21,10 +21,10 @@
       <mat-expansion-panel *ngIf="profile?.isAdmin">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Angebot
+            Aufstellung
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <app-scope [context]="context!"></app-scope>
+        <app-scope [profile]="profile" [context]="context!"></app-scope>
       </mat-expansion-panel>
 
       <mat-expansion-panel *ngIf="profile?.isAdmin">
@@ -33,14 +33,14 @@
             Gästeliste
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <app-guests></app-guests>
+        <app-guests [context]="context!"></app-guests>
       </mat-expansion-panel>
 
       <mat-expansion-panel *ngIf="profile.availablePrograms?.length">
         <mat-expansion-panel-header>
           <mat-panel-title>
             Programm
-            <span *ngIf="profile?.todoCount('invitations')" class="alert-badge" [matBadge]="profile.todoCount('invitations')"></span>
+            <span *ngIf="profile?.invitationTodoCount" class="alert-badge" [matBadge]="profile.invitationTodoCount"></span>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <app-program [profile]="profile" [programs]="profile.availablePrograms!"></app-program>
@@ -50,10 +50,10 @@
         <mat-expansion-panel-header>
           <mat-panel-title>
             Menü
-            <span *ngIf="profile?.todoCount('meals')" class="alert-badge" [matBadge]="profile.todoCount('meals')"></span>
+            <span *ngIf="profile?.mealTodoCount" class="alert-badge" [matBadge]="profile.mealTodoCount"></span>
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <app-dish [profile]="profile" [context]="context!"></app-dish>
+        <app-meal [profile]="profile" [context]="context!"></app-meal>
       </mat-expansion-panel>
 
       <mat-expansion-panel>

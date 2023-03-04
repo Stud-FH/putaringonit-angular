@@ -2,51 +2,76 @@ import {Wish} from "./wish";
 
 export class WishUpdateObject {
 
-  private _parent: Wish;
-
-  id?: number;
+  get query() {
+    return this.parent.query;
+  }
 
   title!: string;
   get titleChanged() {
-    return this.title !== (this._parent.title ?? '');
+    return this.title !== (this.parent.title ?? '');
   }
 
   imageUrl!: string;
   get imageUrlChanged() {
-    return this.imageUrl !== (this._parent.imageUrl ?? '');
+    return this.imageUrl !== (this.parent.imageUrl ?? '');
+  }
+
+  productUrl!: string;
+  get productUrlChanged() {
+    return this.productUrl !== (this.parent.productUrl ?? '');
   }
 
   caption!: string;
   get captionChanged() {
-    return this.caption !== (this._parent.caption ?? '');
+    return this.caption !== (this.parent.caption ?? '');
   }
 
   description!: string;
   get descriptionChanged() {
-    return this.description !== (this._parent.description ?? '');
+    return this.description !== (this.parent.description ?? '');
   }
 
   unit!: 'Piece' | 'CHF';
   get unitChanged() {
-    return this.unit !== (this._parent.unit ?? 'CHF');
+    return this.unit !== (this.parent.unit ?? 'CHF');
   }
 
-  value!: number;
+  value?: number;
   get valueChanged() {
-    return this.value !== (this._parent.value ?? 1);
+    return this.value !== this.parent.value;
   }
 
-  constructor(parent: Wish) {
-    this._parent = parent;
+  hideProgress!: boolean;
+  get hideProgressChanged() {
+    return this.hideProgress !== (this.parent.hideProgress ?? false);
+  }
+
+  get id() {
+    return this.parent.id;
+  }
+
+  get changed() {
+    return this.titleChanged
+      || this.imageUrlChanged
+      || this.captionChanged
+      || this.descriptionChanged
+      || this.unitChanged
+      || this.valueChanged
+  }
+
+  constructor(private parent: Wish) {
     this.title = parent.title ?? '';
     this.imageUrl = parent.imageUrl ?? '';
+    this.productUrl = parent.productUrl ?? '';
     this.caption = parent.caption ?? '';
     this.description = parent.description ?? '';
     this.unit = parent.unit ?? 'CHF';
-    this.value = parent.value ?? 1;
+    this.value = parent.value;
+    this.hideProgress = parent.hideProgress ?? false;
+
   }
 
   invalidate() {
-    this._parent.resetUpdate();
+    this.parent.resetUpdate();
   }
 }

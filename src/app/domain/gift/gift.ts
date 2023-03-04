@@ -26,6 +26,30 @@ export class Gift {
     return this.context.wishRegistry[this.wishId];
   }
 
+  get contributionText() {
+    let status;
+    switch (this.status) {
+      case 'Reserved':
+        status = 'reserviert';
+        break;
+      case 'Paid':
+        status = 'finanziert';
+        break;
+      case 'Delivered':
+        status = 'beigetragen';
+        break;
+      default: return '';
+    }
+
+    switch(this.wish.unit) {
+      case 'CHF':
+        return `Du hast CHF ${this.value} ${status}.`;
+      case 'Piece':
+        return `Du hast ${this.value} Stück ${status}.`;
+      default: return '';
+    }
+  }
+
   constructor(private context: Context, model?: any) {
     Object.assign(this, model);
   }

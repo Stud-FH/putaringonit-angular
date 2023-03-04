@@ -27,7 +27,6 @@ export class ProgramComponent {
   open(program: Program) {
     const updateObj = this.invitationOf(program)?.update;
     if (!updateObj) return;
-    updateObj.program = program;
 
     const dialogRef = this.dialog.open(InvitationEditorComponent, {
       data: updateObj,
@@ -35,7 +34,8 @@ export class ProgramComponent {
 
     dialogRef.afterClosed().subscribe(submitted => {
       if (submitted) {
-        this.invitationService.update(submitted).subscribe(res => console.log(res));
+        this.invitationService.update(submitted, this.profile)
+          .subscribe(res => this.profile.registerInvitation(res));
       }
     });
   }

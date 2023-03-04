@@ -1,4 +1,4 @@
-<section class="dialog-content-container">
+<div class="dialog-content-container">
   <div mat-dialog-title>
     <h1>{{meal.title}}</h1>
     <img
@@ -13,18 +13,21 @@
 
     <mat-form-field appearance="fill" class="dialog-input-row">
       <mat-label>Menu</mat-label>
-      <mat-select [(ngModel)]="data.dishId">
+      <mat-select
+        required
+        name="dish"
+        [(ngModel)]="data.dishId">
         <mat-option [value]="undefined">Bitte auswählen</mat-option>
         <mat-option *ngFor="let dish of meal.dishes" [value]="dish.id">{{dish.title}}</mat-option>
       </mat-select>
     </mat-form-field>
 
-    <h3 *ngIf="dish">{{dish!.title}}</h3>
-    <img *ngIf="dish"
+    <h3>{{dish?.caption ?? ''}}</h3>
+    <img *ngIf="dish?.imageUrl"
       src="{{dish!.imageUrl}}"
       alt="{{dish!.caption}}"
       width="100%">
-    <p *ngIf="dish" class="dialog-description">{{dish!.description}}</p>
+    <p class="dialog-description">{{dish?.description ?? ''}}</p>
 
     <mat-form-field appearance="fill" class="dialog-input-row">
       <textarea
@@ -48,4 +51,4 @@
       Speichern
     </button>
   </div>
-</section>
+</div>

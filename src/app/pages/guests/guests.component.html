@@ -1,30 +1,27 @@
 <mat-button-toggle-group name="mode" aria-label="Mode" [(ngModel)]="mode">
-  <mat-button-toggle value="edit">
+  <mat-button-toggle [value]="modes.edit">
     Gäste
   </mat-button-toggle>
-  <mat-button-toggle value="invite">
+  <mat-button-toggle [value]="modes.invite">
     Einladungen
   </mat-button-toggle>
-  <mat-button-toggle value="roles">
-    Rollen
-  </mat-button-toggle>
-  <mat-button-toggle value="access">
+  <mat-button-toggle [value]="modes.access">
     Zugriff
   </mat-button-toggle>
 </mat-button-toggle-group>
 
-<table *ngIf="mode==='invite'" mat-table [dataSource]="profiles">
+<table *ngIf="mode === modes.invite" mat-table [dataSource]="profiles">
 
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef class="name-column"> Name</th>
-    <td mat-cell *matCellDef="let profile"> {{profile.nickname ?? profile.firstName}} </td>
+    <td mat-cell *matCellDef="let profile"> {{profile.nickname ?? profile.firstName}} {{profile.familyName}}</td>
   </ng-container>
 
-  <ng-container *ngFor="let program of programs" [matColumnDef]="program.title">
+  <ng-container *ngFor="let program of context.programs" [matColumnDef]="program.title">
     <th mat-header-cell *matHeaderCellDef class="invitation-column"> {{program.title}} </th>
     <td mat-cell *matCellDef="let profile" class="invitation-column">
       <mat-checkbox
-        [checked]="profile.isInvited(program.id!)"
+        [checked]="profile.invitationRegistry[program.id]"
         (change)="setInvited(profile, program, $event.checked)">
 
       </mat-checkbox>

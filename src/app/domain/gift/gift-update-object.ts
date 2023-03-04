@@ -2,7 +2,7 @@ import {Gift} from "./gift";
 
 export class GiftUpdateObject {
 
-  get updateQuery() {
+  get query() {
     return this.parent.updateQuery;
   }
 

@@ -13,14 +13,16 @@ import {ProgramEditorComponent} from "../../dialogs/program-editor/program-edito
 import {MealService} from "../../domain/meal/meal.service";
 import {Meal} from "../../domain/meal/meal";
 import {MealEditorComponent} from "../../dialogs/meal-editor/meal-editor.component";
+import {Profile} from "../../domain/profile/profile";
 
 @Component({
   selector: 'app-scope',
   templateUrl: './scope.component.html',
-  styleUrls: ['./scope.component.scss']
+  styleUrls: ['./scope.component.scss', '../shared/grid-styles.scss']
 })
 export class ScopeComponent{
 
+  @Input() profile!: Profile;
   @Input() context!: Context;
 
   modes = {
@@ -42,57 +44,69 @@ export class ScopeComponent{
   editProgram(program: Program) {
     const dialogRef = this.dialog.open(ProgramEditorComponent, {data: program.update});
 
-    dialogRef.afterClosed().subscribe(submitted =>
-      this.programService.update(submitted).subscribe(this.context.registerProgram));
+    dialogRef.afterClosed()
+      .subscribe(submitted => this.programService.update(submitted, this.profile)
+        .subscribe(res => this.context.registerProgram(res)));
   }
 
   createProgram() {
-    const dialogRef = this.dialog.open(ProgramEditorComponent, {data: new Program(this.context).update});
+    const program = new Program(this.context, {title: 'Neues Programm'});
+    const dialogRef = this.dialog.open(ProgramEditorComponent, {data: program.update});
 
-    dialogRef.afterClosed().subscribe(submitted =>
-      this.programService.create(submitted).subscribe(this.context.registerProgram));
+    dialogRef.afterClosed()
+      .subscribe(submitted => this.programService.create(submitted, this.profile)
+        .subscribe(res => this.context.registerProgram(res)));
   }
 
   editMeal(meal: Meal) {
     const dialogRef = this.dialog.open(MealEditorComponent, {data: meal.update});
 
-    dialogRef.afterClosed().subscribe(submitted =>
-      this.mealService.update(submitted).subscribe(this.context.registerMeal));
+    dialogRef.afterClosed()
+      .subscribe(submitted => this.mealService.update(submitted, this.profile)
+        .subscribe(res => this.context.registerMeal(res)));
   }
 
   createMeal() {
-    const dialogRef = this.dialog.open(MealEditorComponent, {data: new Meal(this.context).update});
+    const meal = new Meal(this.context, {title: 'Neue Mahlzeit'});
+    const dialogRef = this.dialog.open(MealEditorComponent, {data: meal.update});
 
-    dialogRef.afterClosed().subscribe(submitted =>
-      this.mealService.create(submitted).subscribe(this.context.registerMeal));
+    dialogRef.afterClosed()
+      .subscribe(submitted => this.mealService.create(submitted, this.profile)
+        .subscribe(res => this.context.registerMeal(res)));
   }
 
   editDish(dish: Dish) {
     const dialogRef = this.dialog.open(DishEditorComponent, {data: dish.update});
 
-    dialogRef.afterClosed().subscribe(submitted =>
-      this.dishService.update(submitted).subscribe(this.context.registerDish));
+    dialogRef.afterClosed()
+      .subscribe(submitted => this.dishService.update(submitted, this.profile)
+        .subscribe(res => this.context.registerDish(res)));
   }
 
   createDish() {
-    const dialogRef = this.dialog.open(DishEditorComponent, {data: new Dish(this.context).update});
+    const dish = new Dish(this.context, {title: 'Neues Menu'});
+    const dialogRef = this.dialog.open(DishEditorComponent, {data: dish.update});
 
-    dialogRef.afterClosed().subscribe(submitted =>
-      this.dishService.create(submitted).subscribe(this.context.registerDish));
+    dialogRef.afterClosed()
+      .subscribe(submitted => this.dishService.create(submitted, this.profile)
+        .subscribe(res => this.context.registerDish(res)));
   }
 
   editWish(wish: Wish) {
     const dialogRef = this.dialog.open(WishEditorComponent, {data: wish.update});
 
-    dialogRef.afterClosed().subscribe(submitted =>
-      this.wishService.update(submitted).subscribe(this.context.registerWish));
+    dialogRef.afterClosed()
+      .subscribe(submitted => this.wishService.update(submitted, this.profile)
+        .subscribe(res => this.context.registerWish(res)));
   }
 
   createWish() {
-    const dialogRef = this.dialog.open(WishEditorComponent, {data: new Wish(this.context).update});
+    const wish = new Wish(this.context, {title: 'Neuer Wunsch'});
+    const dialogRef = this.dialog.open(WishEditorComponent, {data: wish.update});
 
-    dialogRef.afterClosed().subscribe(submitted =>
-      this.wishService.create(submitted).subscribe(this.context.registerWish));
+    dialogRef.afterClosed()
+      .subscribe(submitted => this.wishService.create(submitted, this.profile)
+        .subscribe(res => this.context.registerWish(res)));
   }
 
 }

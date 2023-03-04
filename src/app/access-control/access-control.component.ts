@@ -75,7 +75,7 @@ export class AccessControlComponent implements OnInit {
   }
 
   handleLoginError(error: any): Observable<Account | undefined> {
-    console.log(error)
+    console.log(error);
     this.loginInProgress = false;
     this.error = error;
     this.updateForm();
@@ -118,7 +118,11 @@ export class AccessControlComponent implements OnInit {
     const dialogRef = this.dialog.open(ProfileEditorComponent, {data});
 
     dialogRef.afterClosed().subscribe(submitted => {
-      if (submitted) this.profileService.update(submitted).subscribe(res => this.profileChange.emit(res));
+      if (submitted) this.profileService.update(submitted, this.profile!).subscribe(res => this.profileChange.emit(res));
     });
+  }
+
+  logout() {
+    this.accountChange.emit(undefined);
   }
 }

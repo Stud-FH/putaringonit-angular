@@ -1,6 +1,5 @@
 import {DishUpdateQuery} from "./dish-update-query";
 import {DishUpdateObject} from "./dish-update-object";
-import {Profile} from "../profile/profile";
 import {Context} from "../context";
 
 export class Dish {
@@ -21,6 +20,10 @@ export class Dish {
   imageUrl?: string;
   caption?: string;
   description?: string;
+
+  get allMeals() {
+    return this.context.meals;
+  }
 
   constructor(private context: Context, model?: any) {
     Object.assign(this, model);

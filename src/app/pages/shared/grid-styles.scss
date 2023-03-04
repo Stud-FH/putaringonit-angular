@@ -6,6 +6,7 @@
   align-items: center;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
+  padding-right: 12px;
 
   &:hover {
     background: rgba(255, 255, 255, 0.04);
@@ -15,7 +16,8 @@
 
 .grid-tile-time-container,
 .grid-tile-image-container {
-  width: 6em;
+  min-width: 6em;
+  max-width: 6em;
   margin-right: 2em;
   display: flex;
   flex-direction: column;
@@ -58,14 +60,24 @@
 }
 
 .grid-tile-info-progress {
+  font-size: small;
   opacity: 0.6;
+  margin: 0;
 }
 
 .grid-tile-icon-container {
   display: flex;
   justify-content: flex-end;
-  &.supported {
-    color: #c2185b;
+}
+
+.supported {
+  opacity: 1;
+  color: #c2185b;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  mat-icon {
+    margin: 0 10px;
   }
 }
 

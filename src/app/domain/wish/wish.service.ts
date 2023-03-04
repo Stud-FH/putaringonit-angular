@@ -3,7 +3,9 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {api} from "../../api";
 import {Wish} from "./wish";
-import {authOptions} from "../../util/service-util";
+import {authOptions, updateOptions} from "../../util/service-util";
+import {Profile} from "../profile/profile";
+import {WishUpdateObject} from "./wish-update-object";
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +16,17 @@ export class WishService {
 
   constructor(private httpClient: HttpClient) { }
 
-  create(data: Wish): Observable<Wish> {
-    return this.httpClient.post<Wish>(`${WishService.url}/create`, data, authOptions());
+  create(updateObject: WishUpdateObject, profile: Profile): Observable<Wish> {
+    const query = updateObject.query;
+    return this.httpClient.post<Wish>(`${WishService.url}/create`, query.data, authOptions(profile));
   }
 
-  update(data: Wish): Observable<Wish> {
-    return this.httpClient.put<Wish>(`${WishService.url}/update`, data, authOptions());
+  update(updateObject: WishUpdateObject, profile: Profile): Observable<Wish> {
+    const query = updateObject.query;
+    return this.httpClient.put<Wish>(`${WishService.url}/${updateObject.id}/update`, query.data, updateOptions(query.updates, profile));
   }
 
-  delete(data: Wish): Observable<void> {
-    return this.httpClient.delete<void>(`${WishService.url}/${data.id}`, authOptions())
+  delete(data: Wish, profile: Profile): Observable<void> {
+    return this.httpClient.delete<void>(`${WishService.url}/${data.id}/delete`, authOptions(profile))
   }
 }

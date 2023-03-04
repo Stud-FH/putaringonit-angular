@@ -6,7 +6,7 @@ import {Context} from "../context";
 export class Wish {
 
   outdated = false;
-  get updateQuery() {
+  get query() {
     return new WishUpdateQuery(this);
   }
 
@@ -18,10 +18,12 @@ export class Wish {
   id!: number;
   title!: string;
   imageUrl?: string;
+  productUrl?: string;
   caption?: string;
   description?: string;
   unit!: 'Piece' | 'CHF';
-  value!: number;
+  value?: number;
+  hideProgress!: boolean;
 
   get gifts() {
     return this.context.gifts.filter(g => g.wishId === this.id);
@@ -33,7 +35,7 @@ export class Wish {
   }
 
   get progress(): number {
-    return this.accumulated / (this.value ?? 1);
+    return this.value? this.accumulated / (this.value) : 0;
   }
 
   get progressText(): string {
@@ -63,7 +65,15 @@ export class Wish {
       ?? 0;
   }
 
+  progressExceptFrom(profileId: string) {
+    return this.value? this.accumulatedExceptFrom(profileId) / this.value : 0;
+  }
+
   resetUpdate() {
     this._update = undefined;
+  }
+
+  toString() {
+    return this.caption;
   }
 }

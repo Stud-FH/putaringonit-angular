@@ -15,13 +15,17 @@ export class Invitation {
     return this._update ?? (this._update = new InvitationUpdateObject(this));
   }
 
-  id?: number;
-  profileId?: string;
-  programId?: number;
+  id!: number;
+  profileId!: string;
+  programId!: number;
   accepted?: boolean;
 
   get todoCount(): number {
-    return this.accepted === undefined ? 1 : 0;
+    return this.accepted === undefined || this.accepted === null ? 1 : 0;
+  }
+
+  get program() {
+    return this.context.programRegistry[this.programId]
   }
 
   constructor(private context: Context, model?: any) {

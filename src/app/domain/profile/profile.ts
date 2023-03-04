@@ -9,7 +9,7 @@ import {Meal} from "../meal/meal";
 export class Profile {
 
   outdated = false;
-  get updateQuery() {
+  get query() {
     this.outdated = true;
     return new ProfileUpdateQuery(this);
   }
@@ -19,21 +19,21 @@ export class Profile {
     return this._update ?? (this._update = new ProfileUpdateObject(this));
   }
 
-  invitationRegistry!: { [key: number]: Invitation };
+  invitationRegistry: { [key: number]: Invitation } = {};
   get invitations() {
     return Object.values(this.invitationRegistry);
   }
 
-  dishSelectionRegistry!: { [key: number]: DishSelection };
+  dishSelectionRegistry: { [key: number]: DishSelection } = {};
   get dishSelections() {
     return Object.values(this.dishSelectionRegistry);
   }
 
   isAdmin = false;
 
-  identifier?: string;
-  firstName = '';
-  familyName = '';
+  identifier!: string;
+  firstName!: string;
+  familyName!: string;
 
   nickname?: string;
   email?: string;
@@ -64,15 +64,11 @@ export class Profile {
   }
 
   get mealTodoCount(): number {
-    return this.context.meals.filter(this.findDishSelection).length;
+    return this.availableMeals.filter(m => !this.dishSelectionRegistry[m.id]).length;
   }
 
-  todoCount(filter?: string) {
-    let count = 0;
-    if (!filter || ['email'].includes(filter)) count += !this.blockEmail && !this.email? 1 : 0;
-    if (!filter || ['invitations'].includes(filter)) count += this.invitations.filter(i => i.accepted === undefined || i.accepted === null).length;
-    // if (!filter || ['meals'].includes(filter)) count += this.availableMeals.filter(i => !i.selection).length;
-    return count;
+  todoCount() {
+    return this.dataTodoCount + this.mealTodoCount + this.invitationTodoCount;
   }
 
   isInvited(programId: number) {
@@ -85,22 +81,28 @@ export class Profile {
   }
 
   findDishSelection(meal: Meal): DishSelection | undefined {
-    return this.dishSelections.filter(ds => ds.mealId == meal.id)[0];
+    return this.dishSelectionRegistry[meal.id]
   }
 
-  constructor(private context: Context, model?: any) {
-    Object.assign(this, model);
+  constructor(private context: Context, model: Profile) {
+    this.isAdmin = model.isAdmin ?? false;
+    this.identifier = model.identifier;
+    this.firstName = model.firstName;
+    this.familyName = model.familyName;
+    this.nickname = model.nickname;
+    this.email = model.email;
+    this.blockEmail = model.blockEmail;
 
-    model?.invitations?.forEach(this.registerInvitation)
-    model?.dishSelections?.forEach(this.registerDishSelection)
+    model.invitations.forEach(i => this.registerInvitation(i));
+    model.dishSelections.forEach(ds => this.registerDishSelection(ds));
   }
 
   registerInvitation(invitation: Invitation) {
-    this.invitationRegistry[invitation.programId!] = new Invitation(this.context, invitation)
+    this.invitationRegistry[invitation.programId] = new Invitation(this.context, invitation)
   }
 
   registerDishSelection(dishSelection: DishSelection) {
-    this.dishSelectionRegistry[dishSelection.id!] = new DishSelection(this.context, dishSelection)
+    this.dishSelectionRegistry[dishSelection.mealId] = new DishSelection(this.context, dishSelection)
   }
 
   deleteInvitation(program: Program) {

@@ -1,6 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {Program} from "../../domain/program/program";
+import {ProgramUpdateObject} from "../../domain/program/program-update-object";
 
 @Component({
   selector: 'app-program-editor',
@@ -9,7 +9,11 @@ import {Program} from "../../domain/program/program";
 })
 export class ProgramEditorComponent {
 
-  constructor(public dialogRef: MatDialogRef<ProgramEditorComponent>, @Inject(MAT_DIALOG_DATA) public data: Program) {
+  get ready() {
+    return this.data.title && this.data.changed;
+  }
+
+  constructor(public dialogRef: MatDialogRef<ProgramEditorComponent>, @Inject(MAT_DIALOG_DATA) public data: ProgramUpdateObject) {
   }
 
   cancel(): void {

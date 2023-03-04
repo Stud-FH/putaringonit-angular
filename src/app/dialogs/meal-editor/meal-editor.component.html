@@ -1,1 +1,78 @@
-<p>meal-editor works!</p>
+<section class="dialog-content-container">
+  <div mat-dialog-title>
+    <h1>{{data.title}}</h1>
+    <img
+      *ngIf="data.imageUrl"
+      src="{{data.imageUrl}}"
+      alt="{{data.caption}}"
+      width="100%">
+  </div>
+
+  <div mat-dialog-content>
+
+    <mat-form-field>
+      <mat-label>Programm</mat-label>
+      <mat-select
+        required
+        name="program"
+        [(ngModel)]="data.programId">
+        <mat-option *ngFor="let program of data.allPrograms" [value]="program.id">
+          {{program.title}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="dialog-input-row">
+      <mat-label>Titel</mat-label>
+      <input
+        matInput
+        required
+        type="text"
+        name="title"
+        autocomplete="off"
+        [(ngModel)]="data.title">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="dialog-input-row">
+      <input
+        matInput
+        type="text"
+        name="image"
+        autocomplete="off"
+        [(ngModel)]="data.imageUrl">
+      <mat-label>Bild URL</mat-label>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="dialog-input-row">
+      <input
+        matInput
+        type="text"
+        name="caption"
+        autocomplete="off"
+        [(ngModel)]="data.caption">
+      <mat-label>Schlagzeile</mat-label>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="dialog-input-row">
+      <textarea
+        matInput
+        type="text"
+        name="description"
+        autocomplete="off"
+        [(ngModel)]="data.description">
+      </textarea>
+      <mat-label>Beschreibung</mat-label>
+    </mat-form-field>
+
+  </div>
+  <div mat-dialog-actions class="dialog-action-row">
+    <button mat-button (click)="cancel()">Abbrechen</button>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!ready"
+      [mat-dialog-close]="data">
+      Speichern
+    </button>
+  </div>
+</section>

@@ -2,7 +2,9 @@ import {DishSelection} from "./dish-selection";
 
 export class DishSelectionUpdateObject {
 
-  id?: number;
+  get query() {
+    return this.parent.updateQuery;
+  }
 
   dishId!: number;
   get dishIdChanged() {

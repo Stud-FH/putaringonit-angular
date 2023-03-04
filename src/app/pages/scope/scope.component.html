@@ -50,11 +50,14 @@
   <mat-grid-tile *ngFor="let meal of context.meals">
     <div class="grid-tile-container padded" (click)="editMeal(meal)">
       <div class="grid-tile-image-container">
-        <img
+        <img *ngIf="meal.imageUrl"
           src="{{meal.imageUrl}}"
           alt="{{meal.title}}">
       </div>
       <div class="grid-tile-info-container">
+        <h3 class="grid-tile-info-title">
+          {{meal.title}}
+        </h3>
         <p class="grid-tile-info-caption">
           {{meal.caption}}
         </p>
@@ -80,11 +83,14 @@
   <mat-grid-tile *ngFor="let dish of context.dishes">
     <div class="grid-tile-container padded" (click)="editDish(dish)">
       <div class="grid-tile-image-container">
-        <img
+        <img *ngIf="dish.imageUrl"
           src="{{dish.imageUrl}}"
           alt="{{dish.title}}">
       </div>
       <div class="grid-tile-info-container">
+        <h3 class="grid-tile-info-title">
+          {{dish.title}}
+        </h3>
         <p class="grid-tile-info-caption">
           {{dish.caption}}
         </p>
@@ -110,11 +116,14 @@
   <mat-grid-tile *ngFor="let wish of context.wishes">
     <div class="grid-tile-container padded" (click)="editWish(wish)">
       <div class="grid-tile-image-container">
-        <img
+        <img  *ngIf="wish.imageUrl"
           src="{{wish.imageUrl}}"
           alt="{{wish.title}}">
       </div>
       <div class="grid-tile-info-container">
+        <h3 class="grid-tile-info-title">
+          {{wish.title}}
+        </h3>
         <p class="grid-tile-info-caption">
           {{wish.caption}}
         </p>
