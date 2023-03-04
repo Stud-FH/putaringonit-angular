@@ -2,8 +2,9 @@ import {Injectable} from '@angular/core';
 import {Account} from "./account";
 import {api} from "../../api";
 import {HttpClient} from "@angular/common/http";
-import {Observable, of, tap} from "rxjs";
+import {Observable, of} from "rxjs";
 import {map} from "rxjs/operators";
+import {defaultOptions, tokenOptions} from "../../util/service-util";
 
 @Injectable({
   providedIn: 'root'
@@ -15,21 +16,21 @@ export class AccountService {
   constructor(private httpClient: HttpClient) { }
 
   loginWithToken(token: string): Observable<Account> {
-    return this.httpClient.get<Account>(`${AccountService.url}`, {params:{token}})
+    return this.httpClient.get<Account>(`${AccountService.url}`, tokenOptions(token))
       .pipe(
         map(raw => new Account(raw))
       );
   }
 
   loginWithCode(code: string): Observable<Account> {
-    return this.httpClient.post<Account>(`${AccountService.url}/code`, {code})
+    return this.httpClient.post<Account>(`${AccountService.url}/code`, {code}, defaultOptions())
       .pipe(
         map(raw => new Account(raw)),
       );
   }
 
   loginWithPassword(username: string, password: string): Observable<Account> {
-    return this.httpClient.post<Account>(`${AccountService.url}/password`, {username, password})
+    return this.httpClient.post<Account>(`${AccountService.url}/password`, {username, password}, defaultOptions())
       .pipe(
         map(raw => new Account(raw))
       );

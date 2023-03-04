@@ -5,8 +5,15 @@ const headers = new HttpHeaders()
   .set('content-type', 'application/json')
   .set('Access-Control-Allow-Origin', '*');
 
-export function tokenOptions(): {params: {[key: string]: any}, headers: HttpHeaders} {
-  const token = localStorage.getItem('token') ?? '';
+export function defaultOptions(): {params: {[key: string]: any}, headers: HttpHeaders} {
+  return {
+    headers,
+    params: {}
+  };
+}
+
+export function tokenOptions(token?: string): {params: {[key: string]: any}, headers: HttpHeaders} {
+  if (!token) token = localStorage.getItem('token') ?? '';
   return {
     headers,
     params: {token}
