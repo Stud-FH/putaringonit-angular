@@ -14,6 +14,7 @@ import {map} from "rxjs/operators"
 import {MatDialog} from "@angular/material/dialog";
 import {ProfileEditorComponent} from "../dialogs/profile-editor/profile-editor.component";
 import {ProfileService} from "../domain/profile/profile.service";
+import {WelcomePopupComponent} from "../dialogs/welcome-popup/welcome-popup.component";
 
 @Component({
   selector: 'app-access-control',
@@ -47,6 +48,7 @@ export class AccessControlComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dialog.open(WelcomePopupComponent, {});
     if (this.token) {
       this.loginInProgress = true;
       this.accountService.loginWithToken(this.token).pipe(

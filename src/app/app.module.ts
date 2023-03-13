@@ -44,6 +44,7 @@ import { MealComponent } from './pages/meal/meal.component';
 import {MealEditorComponent} from "./dialogs/meal-editor/meal-editor.component";
 import { GiftSummaryComponent } from './modules/gift-appreciation/gift-summary.component';
 import {GiftConfirmationComponent} from "./dialogs/gift-confirmation/gift-confirmation.component";
+import { WelcomePopupComponent } from './dialogs/welcome-popup/welcome-popup.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import {GiftConfirmationComponent} from "./dialogs/gift-confirmation/gift-confir
     DishEditorComponent,
     MealComponent,
     GiftSummaryComponent,
-    GiftConfirmationComponent
+    GiftConfirmationComponent,
+    WelcomePopupComponent
   ],
   imports: [
     HttpClientModule,

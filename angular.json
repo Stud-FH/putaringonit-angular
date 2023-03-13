@@ -64,7 +64,8 @@
               "browserTarget": "sf:build:production"
             },
             "development": {
-              "browserTarget": "sf:build:development"
+              "browserTarget": "sf:build:development",
+              "proxyConfig": "dev-proxy-config.json"
             }
           },
           "defaultConfiguration": "development"
