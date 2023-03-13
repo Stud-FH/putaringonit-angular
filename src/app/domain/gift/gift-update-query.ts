@@ -8,11 +8,12 @@ export class GiftUpdateQuery {
   constructor(data: Gift) {
     data.outdated = true;
     this.data = {
+      handoverOption: data.update.handoverOption,
       value: data.update.value,
       comment: data.update.comment,
     }
 
-    if (data.update.valueChanged) this.updates.push('value');
+    if (data.update.handoverOptionChanged) this.updates.push('handoverOption');
     if (data.update.commentChanged) this.updates.push('comment');
   }
 }

@@ -74,6 +74,17 @@
     </mat-form-field>
 
     <mat-form-field *ngIf="data.value" appearance="fill" class="dialog-input-row">
+      <mat-label>Geschenkform</mat-label>
+      <mat-select [(ngModel)]="data.handoverOption">
+        <mat-option [value]="'Monetary'">Monetär</mat-option>
+        <mat-option [value]="'Product'" *ngIf="data.wish.isPhysical">Produkt</mat-option>
+      </mat-select>
+      <mat-hint *ngIf="!!data.wish.isPhysical && data.value < (data.wish.value ?? 0)">
+        Bitte beachte, dass eine Absprache mit deinen Mitschenkern ansteht.
+      </mat-hint>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="data.value" appearance="fill" class="dialog-input-row">
     <textarea
       matInput
       type="text"

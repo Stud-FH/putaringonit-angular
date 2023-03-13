@@ -40,6 +40,12 @@
       <mat-label>Produkt URL</mat-label>
     </mat-form-field>
 
+    <mat-checkbox
+      name="hideProgress"
+      [(ngModel)]="data.isPhysical">
+      Physisches Geschenk
+    </mat-checkbox>
+
     <mat-form-field appearance="fill" class="dialog-input-row">
       <input
         matInput

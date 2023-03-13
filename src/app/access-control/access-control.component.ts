@@ -48,6 +48,7 @@ export class AccessControlComponent implements OnInit {
 
   ngOnInit() {
     if (this.token) {
+      this.loginInProgress = true;
       this.accountService.loginWithToken(this.token).pipe(
         catchError(err => this.handleLoginError(err))
       ).subscribe(res => this.setAccount(res));

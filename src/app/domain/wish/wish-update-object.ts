@@ -36,6 +36,11 @@ export class WishUpdateObject {
     return this.unit !== (this.parent.unit ?? 'CHF');
   }
 
+  isPhysical!: boolean;
+  get isPhysicalChanged() {
+    return this.isPhysical !== (this.parent.isPhysical ?? false);
+  }
+
   value?: number;
   get valueChanged() {
     return this.value !== this.parent.value;
@@ -66,6 +71,7 @@ export class WishUpdateObject {
     this.caption = parent.caption ?? '';
     this.description = parent.description ?? '';
     this.unit = parent.unit ?? 'CHF';
+    this.isPhysical = parent.isPhysical ?? false;
     this.value = parent.value;
     this.hideProgress = parent.hideProgress ?? false;
 

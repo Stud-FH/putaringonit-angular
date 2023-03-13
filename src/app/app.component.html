@@ -24,7 +24,9 @@
             Aufstellung
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <app-scope [profile]="profile" [context]="context!"></app-scope>
+        <ng-template matExpansionPanelContent>
+          <app-scope [profile]="profile" [context]="context!"></app-scope>
+        </ng-template>
       </mat-expansion-panel>
 
       <mat-expansion-panel *ngIf="profile?.isAdmin">
@@ -33,7 +35,9 @@
             Gästeliste
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <app-guests [context]="context!"></app-guests>
+        <ng-template matExpansionPanelContent>
+          <app-guests [context]="context!"></app-guests>
+        </ng-template>
       </mat-expansion-panel>
 
       <mat-expansion-panel *ngIf="profile.availablePrograms?.length">
@@ -43,7 +47,9 @@
             <span *ngIf="profile?.invitationTodoCount" class="alert-badge" [matBadge]="profile.invitationTodoCount"></span>
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <app-program [profile]="profile" [programs]="profile.availablePrograms!"></app-program>
+        <ng-template matExpansionPanelContent>
+          <app-program [profile]="profile" [programs]="profile.availablePrograms!"></app-program>
+        </ng-template>
       </mat-expansion-panel>
 
       <mat-expansion-panel *ngIf="profile.availableMeals?.length">
@@ -53,7 +59,9 @@
             <span *ngIf="profile?.mealTodoCount" class="alert-badge" [matBadge]="profile.mealTodoCount"></span>
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <app-meal [profile]="profile" [context]="context!"></app-meal>
+        <ng-template matExpansionPanelContent>
+          <app-meal [profile]="profile" [context]="context!"></app-meal>
+        </ng-template>
       </mat-expansion-panel>
 
       <mat-expansion-panel>
@@ -62,7 +70,9 @@
             Unsere Brautführer
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <app-team [profile]="profile"></app-team>
+        <ng-template matExpansionPanelContent>
+          <app-team [profile]="profile"></app-team>
+        </ng-template>
       </mat-expansion-panel>
 
       <mat-expansion-panel>
@@ -71,7 +81,9 @@
             Unsere Story
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <app-story [profile]="profile"></app-story>
+        <ng-template matExpansionPanelContent>
+          <app-story [profile]="profile"></app-story>
+        </ng-template>
       </mat-expansion-panel>
 
       <mat-expansion-panel *ngIf="profile.isEnrolled()">
@@ -80,7 +92,9 @@
             Wunschbüechli
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <app-gifts [profile]="profile" [context]="context!"></app-gifts>
+        <ng-template matExpansionPanelContent>
+          <app-gifts [profile]="profile" [context]="context!"></app-gifts>
+        </ng-template>
       </mat-expansion-panel>
 
       <mat-expansion-panel>
@@ -89,7 +103,9 @@
             Fotos
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <app-illustrations [profile]="profile"></app-illustrations>
+        <ng-template matExpansionPanelContent>
+          <app-illustrations [profile]="profile"></app-illustrations>
+        </ng-template>
       </mat-expansion-panel>
 
       <mat-expansion-panel>
@@ -98,7 +114,9 @@
             Kontakt
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <app-contact [profile]="profile"></app-contact>
+        <ng-template matExpansionPanelContent>
+          <app-contact [profile]="profile"></app-contact>
+        </ng-template>
       </mat-expansion-panel>
 
     </mat-accordion>

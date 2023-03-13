@@ -18,7 +18,7 @@ export class Gift {
   donorId!: string;
   wishId!: number;
   status!: 'Reserved' | 'Paid' | 'Delivered';
-
+  handoverOption!: 'Monetary' | 'Product';
   value!: number;
   comment?: string;
 

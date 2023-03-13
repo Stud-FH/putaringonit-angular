@@ -14,6 +14,7 @@ export class WishUpdateQuery {
       caption: data.update.caption,
       description: data.update.description,
       unit: data.update.unit,
+      isPhysical: data.update.isPhysical,
       value: data.update.hideProgress? 0 : data.update.value,
       hideProgress: data.update.hideProgress,
     }
@@ -24,6 +25,7 @@ export class WishUpdateQuery {
     if (data.update.captionChanged) this.updates.push('caption');
     if (data.update.descriptionChanged) this.updates.push('description');
     if (data.update.unitChanged) this.updates.push('unit');
+    if (data.update.isPhysicalChanged) this.updates.push('isPhysical');
     if (data.update.valueChanged || data.update.hideProgressChanged) this.updates.push('value');
     if (data.update.hideProgressChanged) this.updates.push('hideProgress');
   }

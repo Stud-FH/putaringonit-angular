@@ -22,6 +22,7 @@ export class Wish {
   caption?: string;
   description?: string;
   unit!: 'Piece' | 'CHF';
+  isPhysical?: boolean;
   value?: number;
   hideProgress!: boolean;
 

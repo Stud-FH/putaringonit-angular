@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "https://putaringonit.herokuapp.com",
+    "target": "https://putaringonit-java.oa.r.appspot.com/api",
     "secure": true,
     "logLevel": "debug"
   }
