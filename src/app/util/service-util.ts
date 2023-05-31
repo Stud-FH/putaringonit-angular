@@ -3,7 +3,8 @@ import {HttpHeaders} from "@angular/common/http";
 
 const headers = new HttpHeaders()
   .set('content-type', 'application/json')
-  .set('Access-Control-Allow-Origin', '*');
+  .set('Access-Control-Allow-Origin', '*')
+  .set('mode', 'no-cors');
 
 export function defaultOptions(): {params: {[key: string]: any}, headers: HttpHeaders} {
   return {

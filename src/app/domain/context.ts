@@ -23,7 +23,7 @@ export class Context {
 
   wishRegistry: { [key: number]: Wish } = {};
   get wishes() {
-    return Object.values(this.wishRegistry).sort();
+    return Object.values(this.wishRegistry).sort().reverse();
   }
 
   giftRegistry: { [key: number]: Gift } = {};

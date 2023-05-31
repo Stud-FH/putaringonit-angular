@@ -80,7 +80,7 @@
         <mat-option [value]="'Product'" *ngIf="data.wish.isPhysical">Produkt</mat-option>
       </mat-select>
       <mat-hint *ngIf="!!data.wish.isPhysical && data.value < (data.wish.value ?? 0)">
-        Bitte beachte, dass eine Absprache mit deinen Mitschenkern ansteht.
+        Bitte sprich dich mit deinen Mitschenkern ab.
       </mat-hint>
     </mat-form-field>
 
